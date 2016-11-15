@@ -34,7 +34,7 @@ class AddWineForm extends React.Component {
 }
 
 AddWineForm.propTypes = {
-  addWine = React.PropTypes.func.isRequired
+  addWine: React.PropTypes.func.isRequired
 }
 
 export default AddWineForm;
