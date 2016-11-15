@@ -54,7 +54,7 @@ class Order extends React.Component {
     }, 0);
     return (
       <div className="order-wrap">
-        <h2> Your Order</h2>
+        <h2> Your Order Firebase</h2>
         {/* change ul into CSSTransitionGroup tag that has property ul */}
         <CSSTransitionGroup
           className="order"
