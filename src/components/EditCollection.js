@@ -1,13 +1,34 @@
 import React from 'react';
 import AddWineForm from './AddWineForm';
+import base from '../base';
 
 class EditCollection extends React.Component {
   constructor() {
     super();
-    this.renderEditWine = this.renderEditWine.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.renderEditWine = this.renderEditWine.bind(this); // put the Html on page
+    this.handleChange = this.handleChange.bind(this); // updates the editing
+    this.renderLogin = this.renderLogin.bind(this); // the Login Buttons
+    this.authenticate = this.authenticate.bind(this); // authentication with authWithOAuthPopup()
+    this.authHandler = this.authHandler.bind(this); // auth RULES
+    this.logout = this.logout.bind(this); // unauth()
+
+    this.state = { // set the user id and owner to be nothing by default
+      uid: null,
+      owner: null,
+      anonymous: null // ANONYMOUS state
+    }
   }
-  handleChange(e, key) {
+// when RELOADING the page KEEP THE USER logged in
+// by running authHandler again that does all the checking and setting of state
+  componentDidMount() {
+    base.onAuth((user) => {
+      if(user) {
+        this.authHandler(null, { user });
+      }
+    });
+  }
+
+  handleChange(e, key) { // Update the wine state with the new data
     const wine = this.props.wines[key];
     // take a copy of the wine and updated with the new data
     const updatedWine = {
@@ -15,6 +36,66 @@ class EditCollection extends React.Component {
       [e.target.name]: e.target.value
     }
     this.props.updateWine(key, updatedWine);
+  }
+
+  authenticate(provider) {
+    console.log(`Trying to log in with ${provider}`);
+    // authenticate the person with diferrent providers
+    // (after clicking authenticate with github or other  provider), run authhandler
+    base.authWithOAuthPopup(provider, this.authHandler);
+  }
+
+  authenticateAnonymously() { // works only once;
+    const auth = base.auth();
+    auth.signInAnonymously();
+    auth.signOut();
+    console.log('Trying to log in Anonymously');
+  }
+
+  logout() {
+    base.unauth();
+    base.auth().signOut();
+    this.setState({ uid: null });
+  }
+  // authHandler gives AN ERROR If there is one & logs all the authentication data of the user(name, email, etc)
+  authHandler(err, authData) {
+    console.log(authData);
+    if(err) {
+      console.log(err);
+      return;
+    }
+    // GRAB the STORE INFO (only the store you are in with ref)
+    // => pass down the storeId in App (this.props.params.storeId) to use it here in EditCollection
+    const storeRef = base.database().ref(this.props.storeId);
+    // query(get) the firebase once for the store data
+    storeRef.once('value', (snapshot) => {
+      const data = snapshot.val() || {};
+    // claim it as your own if there is no owner already
+    if(!data.owner) {
+      storeRef.set({
+        // the uid is unique coming from github
+        owner: authData.user.uid
+      });
+    }
+// if you are the owner, show all the data of that specific store
+    this.setState({
+      uid: authData.user.uid,
+      owner: data.owner || authData.user.uid,
+
+    });
+  });
+  }
+// create a method that is going to create the buttons
+  renderLogin() {
+    return(
+      <nav className="login">
+        <h2>EDIT COLLECTION - works ok</h2>
+        <p className='signIn-text'>Sign In to manage your store</p>
+        <button className="github" onClick={() => this.authenticate('github')}>Log In with Github</button>
+        <button className="twitter" onClick={() => this.authenticate('twitter')}>Log In with Twitter</button>
+        <button className="anonymous" onClick={() => this.authenticateAnonymously('anonymous')}>Log In Anonymously</button>
+      </nav>
+    )
   }
 
   renderEditWine(key) {
@@ -39,9 +120,26 @@ class EditCollection extends React.Component {
     )
   }
   render() {
+    // the LOGOUT button
+    const logout = <button className='logout-btn' onClick={this.logout} >Log Out!</button>
+
+    if(!this.state.uid) { // check if they are not logged in at all
+      return <div>{this.renderLogin()}</div>
+    }
+    // check if they are the OWNER of the current store
+    // store the users id in state once they are logged in
+    if(this.state.uid !== this.state.owner) {
+      return (
+        <div>
+          <p>Sorry, you arent the owner of this store!</p>
+          {logout}
+        </div>
+      )
+    }
     return (
-      <div className="">
-        <h2>Edit Collection</h2>
+      <div className="edit-collection-wrapper">
+        <h2>Edit Collection Works ok</h2>
+        {logout}
         {/* loop over our wines */}
         {Object.keys(this.props.wines).map(this.renderEditWine)}
         <AddWineForm addWine={this.props.addWine}/>
@@ -58,7 +156,8 @@ EditCollection.propTypes = {
   updateWine: React.PropTypes.func.isRequired,
   removeWine: React.PropTypes.func.isRequired,
   addWine: React.PropTypes.func.isRequired,
-  loadSamples: React.PropTypes.func.isRequired
+  loadSamples: React.PropTypes.func.isRequired,
+  storeId: React.PropTypes.string.isRequired
 };
 
 export default EditCollection;

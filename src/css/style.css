@@ -183,7 +183,6 @@ body {
   font-size: 2rem;
 }
 h1 {
-  font-family: 'blanchcaps_inline', sans-serif;
   text-align: center;
   font-weight: bold;
   margin: 0;
@@ -209,33 +208,31 @@ header.top {
   text-align: center;
 }
 header.top h1 {
-  font-size: 12rem;
-  line-height: 0.7;
-  /*
+  font-size: 8rem;
+  line-height: 0.9;
   display: flex;
-  */
-  text-shadow: rgba(0,0,0,0.5) 0.1em 0.1em 0.2em;
-  color: white;
+  text-shadow: rgba(0,0,0,0.3) 0.1em 0.1em 0.2em;
+  color: #8e1b1b;
 }
 header.top h3 {
   margin: 0;
   font-size: 2rem;
-  color: rgb(250, 200, 66);
-  /*position: relative;
-  display: inline-block;*/
+  color: rgb(195, 144, 6);
+  margin-top: .6em;
 }
 
 .red-wine-collection {
   background: #fff;
 }
 .menu {
-  background: #ba7a1c;
+  background: #fff4e3;
+  padding: 20px;
 }
 .order {
-  background: #df9d3c;
+  background: #f0e6d4;
 }
 .edit-collection {
-  background: lightyellow;
+  background: #e1d8c9;
 }
 .store-selector {
   background: #fff;
@@ -257,9 +254,9 @@ button,
 input[type=submit] {
   text-transform: uppercase;
   background: none;
-  border: 2px solid #76032a;
+  border: 2px solid #f56e5f;
   padding: 7px;
-  color: #76032a;
+  color: #f56e5f;
   font-weight: 600;
   font-size: 1.5rem;
   font-family: 'Open Sans';
@@ -290,7 +287,7 @@ input[type=submit]:after {
   content: '';
   z-index: -1;
   display: block;
-  background: #76032a;
+  background: #f56e5f;
   position: absolute;
   width: 100%;
   height: 0%;
@@ -312,10 +309,20 @@ button:focus:after,
 input[type=submit]:focus:after {
   height: 100%;
 }
+
+.logout-btn {
+  position: absolute;
+  top: 1em;
+  right: 2em;
+}
+
+.edit-collection-wrapper{
+  margin: 2em 0 1em 0;
+}
 .wine-edit {
   margin-bottom: 20px;
-  border: 8px solid #76032a;
-  border-radius: 8px;
+  border: 2px solid rgb(255, 244, 227);
+  border-radius: 4px;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -323,6 +330,8 @@ input[type=submit]:focus:after {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
+
+
 .wine-edit input,
 .wine-edit textarea,
 .wine-edit select {
@@ -331,13 +340,13 @@ input[type=submit]:focus:after {
   line-height: 1;
   font-size: 1.2rem;
   border: 0;
-  border-bottom: 1px solid #76032a;
-  border-right: 1px solid #76032a;
+  border-bottom: 2px solid rgb(255, 244, 227);
+  border-right: 2px solid rgb(255, 244, 227);
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
   border-radius: 0;
-  background: #fff;
+  background: #f0e6d4;
 }
 .wine-edit input:focus,
 .wine-edit textarea:focus,
@@ -355,8 +364,29 @@ input[type=submit]:focus:after {
   width: 40%;
   border: 0;
   margin: 10px auto;
-  border: 3px solid #76032a;
+  border: 3px solid #f56e5f;
   padding: 8px;
+}
+.add-wine {
+  /*border: 2px solid #940d5e;*/
+}
+.add-wine input, .add-wine textarea, .add-wine select {
+  background: #940d5e;
+}
+.add-wine ::-webkit-input-placeholder {
+  color: white;
+}
+.add-wine :-moz-placeholder {
+ color: white;
+}
+.add-wine ::-moz-placeholder {
+  color: white;
+}
+.add-wine ::-ms-placeholder {
+  color: white;
+}
+.add-wine select {
+  color: orange;
 }
 .list-of-wines {
   padding: 0;
@@ -370,16 +400,19 @@ input[type=submit]:focus:after {
   overflow: hidden;
   width: 90%;
   margin: 10px auto;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.11), 0 10px 10px rgba(0,0,0,0.08);
   border-radius: 4px;
 }
 .wine-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   padding: 20px;
 }
 .menu-wine p {
   margin: 10px 0;
   font-size: 1.4rem;
-  color: #303030;
+  color: rgba(48, 48, 48, 0.67);
 }
 .menu-wine .wine-name {
   margin: 0;
@@ -396,8 +429,10 @@ input[type=submit]:focus:after {
 .menu-wine .price {
   font-size: 1.4rem;
   -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  font-weight: 700;
+  color: rgba(48, 48, 48, 0.87);
 }
 .menu-wine img {
   float: left;
@@ -406,6 +441,19 @@ input[type=submit]:focus:after {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   border-radius: 2px;
+}
+.name-descr-wrapper {
+  height: 7em;
+}
+.add-to-order-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+button.add-to-order {
+  margin-left: 2em;
 }
 /* SOLD OUT button style*/
 button[disabled],
@@ -418,8 +466,9 @@ input[type=submit][disabled] {
   background: #d12028;
   border-color: #d12028;
 
-  -webkit-transform: rotate(-10deg) scale(2) translateX(50%) translateY(-50%);
-          transform: rotate(-10deg) scale(2) translateX(50%) translateY(-50%);
+  -webkit-transform: rotate(-10deg) scale(1.5) translateX(-85%) translateY(-197%);
+  transform: rotate(-10deg) scale(1.5) translateX(-85%) translateY(-197%);
+
 }
 button[disabled]:hover,
 input[type=submit][disabled]:hover {
@@ -432,8 +481,9 @@ input[type=submit][disabled]:after {
 }
 /* Order style*/
 .order-wrap {
-  background: #df9d3c;
+  background: #f0e6d4;
   padding: 30px;
+  margin-top: 7%;
 }
 ul.order {
   padding: 0;
@@ -448,13 +498,13 @@ ul.order li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-size: 1.4rem;
+  font-size: 1.65rem;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 ul.order li:hover button {
   display: inline;
@@ -476,6 +526,12 @@ ul.order li.unavailable {
 }
 ul.order li .price {
   font-size: 1.2rem;
+}
+ul.order li span, li.total, li.not-available {
+  font-family: 'fell-great-primer', serif;
+  font-style: italic;
+  font-weight: 600;
+  color: rgb(48,48,48);
 }
 ul.order li span.count {
   position: relative;
@@ -546,4 +602,45 @@ ANIMATIONS for Order component
 .count-leave.count-leave-active {
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
+}
+/*--------------------------------------------------------------*/
+/* FACEBOOK, GITHUB buttons style: */
+.github, .facebook, .twitter, .anonymous {
+  border: 0;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  width: 90%;
+  color: white;
+  padding: 2rem;
+}
+
+.github {
+  background: #82d465;
+}
+.github:after {
+  background: #5cc437;
+}
+.twitter {
+  background: #5ea9dd;
+}
+.twitter:after {
+  background: #2c8dd0;
+}
+.facebook {
+  background: #3864a3;
+}
+.facebook:after {
+  background: #2d5082;
+}
+.anonymous {
+  background: gray;
+}
+/* Inventory general style*/
+.edit-collection {
+  padding: 30px;
+}
+p.signIn-text {
+  width: 90%;
+  margin: 20px auto;
 }

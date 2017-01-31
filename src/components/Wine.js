@@ -12,12 +12,20 @@ class Wine extends React.Component {
       <li className="menu-wine">
         <img src={details.image} alt={this.name}/>
         <div className="wine-text">
-          <h3 className="wine-name">
-            {details.name}
+          <div className="name-descr-wrapper">
+            <h3 className="wine-name">{details.name}</h3>
+            <p>{details.desc}</p>
+          </div>
+          <div className="add-to-order-wrapper">
             <span className="price">{formatPrice(details.price)}</span>
-          </h3>
-          <p>{details.desc}</p>
-          <button onClick={() => this.props.addToOrder(index)} disabled={!isAvailable}>{buttonText}</button>
+            <button
+              className='add-to-order'
+              onClick={() => this.props.addToOrder(index)}
+              disabled={!isAvailable}>
+                {buttonText}
+            </button>
+          </div>
+
         </div>
       </li>
     )

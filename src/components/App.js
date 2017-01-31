@@ -9,6 +9,7 @@ import Wine from './Wine';
 import base from '../base';
 
 
+
 class App extends React.Component {
   constructor() {
     super();
@@ -119,6 +120,7 @@ class App extends React.Component {
             updateWine={this.updateWine}
             removeWine={this.removeWine}
             loadSamples={this.loadSamples}
+            storeId={this.props.params.storeId}
              />
         </Box>
       </Flex>
@@ -128,6 +130,6 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  params: React.PropTypes.object.isRequired
+  params: React.PropTypes.object.isRequired,
 }
 export default App;

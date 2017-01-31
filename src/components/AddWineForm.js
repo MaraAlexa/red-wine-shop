@@ -17,7 +17,7 @@ class AddWineForm extends React.Component {
   }
   render() {
     return (
-      <form ref={(input) => this.wineForm = input} className="wine-edit" onSubmit={(e) => this.createWine(e)}>
+      <form ref={(input) => this.wineForm = input} className="wine-edit add-wine" onSubmit={(e) => this.createWine(e)}>
         <input ref={(input) => this.name = input} type="text" placeholder="Wine Name" />
         <input ref={(input) => this.price = input} type="text" placeholder="Wine Price" />
         <select ref={(input) => this.status = input} >

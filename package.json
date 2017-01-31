@@ -9,6 +9,7 @@
     "stylus": "0.54.5"
   },
   "dependencies": {
+    "firebase": "^3.6.0",
     "history": "4.2.0",
     "re-base": "2.2.0",
     "react": "15.3.2",
@@ -23,7 +24,8 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
-    "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css"
+    "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
+    "deploy": "ns ./build --cmd 'list ./content -s'"
   },
   "eslintConfig": {
     "extends": "react-app"

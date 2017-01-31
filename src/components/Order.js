@@ -16,7 +16,7 @@ class Order extends React.Component {
     const removeButton = <button onClick={() => this.props.removeFromOrder(key)}>&times;</button>
 
     if(!wine || wine.status === 'unvailable') {
-      return <li key={key}>Sorry, {wine ? wine.name: 'wine'} is no loneger available! {removeButton}</li>
+      return <li className="not-available" key={key}>Sorry, {wine ? wine.name: 'wine'} is no longer available! {removeButton}</li>
     }
 
     return (
@@ -54,7 +54,7 @@ class Order extends React.Component {
     }, 0);
     return (
       <div className="order-wrap">
-        <h2> Your Order Firebase</h2>
+        <h2> Your Order</h2>
         {/* change ul into CSSTransitionGroup tag that has property ul */}
         <CSSTransitionGroup
           className="order"

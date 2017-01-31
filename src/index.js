@@ -8,7 +8,7 @@ import PickAStore from './components/PickAStore';
 import App from './components/App';
 import NotFound from './components/NotFound';
 
-// make a Root stateless functional component for routing
+// make a Root stateless functional component for routing that returns 3 different pages
 
 const Root = () => {
   return (
