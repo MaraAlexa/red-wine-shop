@@ -42,10 +42,11 @@ class EditCollection extends React.Component {
     console.log(`Trying to log in with ${provider}`);
     // authenticate the person with diferrent providers
     // (after clicking authenticate with github or other  provider), run authhandler
-    base.authWithOAuthPopup(provider, this.authHandler);
+    base.authWithOAuthPopup( provider, this.authHandler);
+
   }
 
-  authenticateAnonymously() { // works only once;
+  authenticateAnonymously() {
     const auth = base.auth();
     auth.signInAnonymously();
     auth.signOut();
@@ -54,7 +55,12 @@ class EditCollection extends React.Component {
 
   logout() {
     base.unauth();
-    base.auth().signOut();
+    const storeRef = base.database().ref(this.props.storeId);
+    storeRef.once('value', (snapshot) => {
+      storeRef.set({
+        owner: null
+      })
+    })
     this.setState({ uid: null });
   }
   // authHandler gives AN ERROR If there is one & logs all the authentication data of the user(name, email, etc)
@@ -64,6 +70,7 @@ class EditCollection extends React.Component {
       console.log(err);
       return;
     }
+
     // GRAB the STORE INFO (only the store you are in with ref)
     // => pass down the storeId in App (this.props.params.storeId) to use it here in EditCollection
     const storeRef = base.database().ref(this.props.storeId);
@@ -80,18 +87,19 @@ class EditCollection extends React.Component {
 // if you are the owner, show all the data of that specific store
     this.setState({
       uid: authData.user.uid,
-      owner: data.owner || authData.user.uid,
-
+      owner: data.owner || authData.user.uid
     });
+    this.props.loadSamples(); // load data as soon as you are authenticated
   });
+
   }
 // create a method that is going to create the buttons
   renderLogin() {
     return(
       <nav className="login">
-        <h2>EDIT COLLECTION - works ok</h2>
+        <h2>EDIT COLLECTION</h2>
         <p className='signIn-text'>Sign In to manage your store</p>
-        <button className="github" onClick={() => this.authenticate('github')}>Log In with Github</button>
+        <button className="github" onClick={ () => this.authenticate('github') }>Log In with Github</button>
         <button className="twitter" onClick={() => this.authenticate('twitter')}>Log In with Twitter</button>
         <button className="anonymous" onClick={() => this.authenticateAnonymously('anonymous')}>Log In Anonymously</button>
       </nav>
@@ -131,14 +139,14 @@ class EditCollection extends React.Component {
     if(this.state.uid !== this.state.owner) {
       return (
         <div>
-          <p>Sorry, you arent the owner of this store!</p>
+          <p>Sorry, you are not the owner of this store!</p>
           {logout}
         </div>
       )
     }
     return (
       <div className="edit-collection-wrapper">
-        <h2>Edit Collection Works ok</h2>
+        <h2>Edit Collection</h2>
         {logout}
         {/* loop over our wines */}
         {Object.keys(this.props.wines).map(this.renderEditWine)}
