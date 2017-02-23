@@ -27,8 +27,7 @@
     "eject": "react-scripts eject",
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "ns ./build --cmd 'list ./content -s'"
   },
   "eslintConfig": {
     "extends": "react-app"
