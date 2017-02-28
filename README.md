@@ -9,4 +9,4 @@ The owner of the shop can log in with a github/twitter/anonymous account (OAuth)
 
 ## See the app online
 1. Go to https://maraalexa.github.io/red-wine-shop/
-2. click on Log In Github if you have a github account, the same with Twitter or Log in Anonymously if you just want to login without any authentication.
+2. click on Log In Github if you have a github account, the same with Twitter or Log in Anonymously if you just want to login without any authentication. :)
